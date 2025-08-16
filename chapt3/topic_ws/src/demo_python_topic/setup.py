@@ -1,6 +1,6 @@
 from setuptools import find_packages, setup
 
-package_name = 'demo_python_pkg'
+package_name = 'demo_python_topic'
 
 setup(
     name=package_name,
@@ -14,14 +14,14 @@ setup(
     install_requires=['setuptools'],
     zip_safe=True,
     maintainer='ywu',
-    maintainer_email='ywu@todo.todo',
+    maintainer_email='yejunwu123@gmail.com',
     description='TODO: Package description',
     license='Apache-2.0',
     tests_require=['pytest'],
     entry_points={
         'console_scripts': [
-            'python_node = demo_python_pkg.python_node:main',
-            'person_node = demo_python_pkg.person_node:main',
+            'novel_pub_node = demo_python_topic.novel_pub_node:main',
+            'novel_sub_node = demo_python_topic.novel_sub_node:main',
         ],
     },
 )
