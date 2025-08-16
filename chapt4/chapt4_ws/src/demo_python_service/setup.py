@@ -22,6 +22,7 @@ setup(
     entry_points={
         'console_scripts': [
             'learn_face_detect = demo_python_service.learn_face_detect:main',
+            'face_detect_node = demo_python_service.face_detect_node:main',
         ],
     },
 )
