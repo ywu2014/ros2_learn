@@ -11,7 +11,7 @@ class FaceDetectorionNode(Node):
     def __init__(self):
         super().__init__('face_detect_node')
         self.bridge = CvBridge() # open和ROS2的Image格式不兼容, 用于将opencv的Image转换为ROS2的Image
-        self.services = self.create_service(FaceDetector, '/face_detect', self.face_detector_callback)
+        self.service = self.create_service(FaceDetector, '/face_detect', self.face_detector_callback)
         self.default_img_path = get_package_share_directory('demo_python_service') + '/resource/default.jpg'
         self.upsample_times = 1
         self.model = 'hog'
