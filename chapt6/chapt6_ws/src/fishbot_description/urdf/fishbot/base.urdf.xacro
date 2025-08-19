@@ -1,0 +1,29 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro">
+  <xacro:macro name="base_xacro" params="length radius">
+    <!-- 底盘 -->
+    <link name="base_footprint"/>
+    <joint name="base_joint" type="fixed">
+      <parent link="base_footprint"/>
+      <child link="base_link"/>
+      <origin xyz="0 0 ${length/2.0 + 0.032 - 0.001}" rpy="0 0 0"/>
+    </joint>
+
+    <link name="base_link">
+      <!-- 部件外观描述 -->
+      <visual>
+        <!-- 沿自己几何中心的偏移与旋转 -->
+        <origin xyz="0 0 0" rpy="0 0 0"/>
+        <!-- 几何形状 -->
+        <geometry>
+          <!-- 圆柱体， 半径为0.10m，高度为0.12m -->
+          <cylinder length="${length}" radius="${radius}"/>
+        </geometry>
+        <!-- 材料属性 -->
+        <material name="white">
+          <color rgba="1.0 1.0 1.0 0.5"/>
+        </material>
+      </visual>
+    </link>
+  </xacro:macro>
+</robot>
