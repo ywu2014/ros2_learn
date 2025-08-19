@@ -4,7 +4,8 @@ from ament_index_python.packages import get_package_share_directory
 
 def generate_launch_description():
     urdf_tutorial_package = get_package_share_directory('fishbot_description')
-    default_model_path = urdf_tutorial_package + '/urdf/first_robot.urdf'
+    # default_model_path = urdf_tutorial_package + '/urdf/first_robot.urdf'
+    default_model_path = urdf_tutorial_package + '/urdf/first_robot.urdf.xacro'
     default_rviz_config_path = urdf_tutorial_package + '/config/rviz/display_model.rviz'
 
     # 声明一个参数，用于指定URDF文件的路径
@@ -15,8 +16,14 @@ def generate_launch_description():
     )
     
     # 获取文件内容生成新的参数
+    # 静态方式
+    # robot_description = launch_ros.parameter_descriptions.ParameterValue(
+    #     launch.substitutions.Command(['cat ', launch.substitutions.LaunchConfiguration('model')]),
+    #     value_type=str
+    # )
+    # 动态方式
     robot_description = launch_ros.parameter_descriptions.ParameterValue(
-        launch.substitutions.Command(['cat ', launch.substitutions.LaunchConfiguration('model')]),
+        launch.substitutions.Command(['xacro ', launch.substitutions.LaunchConfiguration('model')]),
         value_type=str
     )
 
