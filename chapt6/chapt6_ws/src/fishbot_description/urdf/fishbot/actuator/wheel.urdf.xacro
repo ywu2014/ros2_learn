@@ -2,6 +2,9 @@
 <robot xmlns:xacro="http://www.ros.org/wiki/xacro">
   <xacro:include filename="$(find fishbot_description)/urdf/fishbot/common_inertia.xacro"/>
   <xacro:macro name="wheel_xacro" params="wheel_name xyz">
+    <gazebo reference="${wheel_name}_wheel_link">
+      <material>Gazebo/Blue</material>
+    </gazebo>
     <link name="${wheel_name}_wheel_link">
       <visual>
         <origin xyz="0 0 0" rpy="1.57079 0 0"/>
