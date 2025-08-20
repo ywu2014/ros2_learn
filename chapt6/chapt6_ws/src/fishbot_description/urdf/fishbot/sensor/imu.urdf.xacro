@@ -11,6 +11,16 @@
           <color rgba="0 0 0 0.8"/>
         </material>
       </visual>
+      <!-- 碰撞检测 -->
+      <collision>
+        <origin xyz="0 0 0" rpy="0 0 0"/>
+        <geometry>
+          <box size="0.02 0.02 0.02"/>
+        </geometry>
+        <material name="black">
+          <color rgba="0 0 0 0.8"/>
+        </material>
+      </collision>
     </link>
 
     <!-- 机器人IMU与身体的连接 -->
