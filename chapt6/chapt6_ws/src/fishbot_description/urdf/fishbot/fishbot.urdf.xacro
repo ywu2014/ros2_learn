@@ -8,6 +8,9 @@
   <xacro:include filename="$(find fishbot_description)/urdf/fishbot/actuator/wheel.urdf.xacro" />
   <xacro:include filename="$(find fishbot_description)/urdf/fishbot/actuator/caster.urdf.xacro" />
   
+  <xacro:include filename="$(find fishbot_description)/urdf/fishbot/plugins/gazebo_control_plugin.xacro" />
+  <xacro:gazebo_control_plugin />
+
   <xacro:base_xacro length="0.12" radius="0.1" />
   <xacro:imu_xacro xyz="0 0 0.02" />
   <xacro:laser_xacro xyz="0 0 0.1" />
