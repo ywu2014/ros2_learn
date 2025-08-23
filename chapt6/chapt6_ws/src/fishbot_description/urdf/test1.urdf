@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!-- 1. 垂直地面方向为Z轴 -->
+<!-- 2. xyz表示物体中心离参考坐标的平移(没有跟joint关联时参考坐标为world坐标系，有joint关联时参考坐标为parent link的link framework，注意不是parent link的visual的中心) -->
+<!-- 3. rpy表示物体中心绕xyz轴的旋转 -->
+<!-- 4. origin只是改变物体的位置和姿态，物体所在的link的坐标系没有改变 -->
+<!-- 5. link - visual - origin修改的是自己相对参考坐标的位置和姿态，参考坐标没有改变；没有joint时都是参考的world坐标系；有joint时参考的是joint 的frame -->
+<!-- 6. joint - origin修改的是参考系之间的位置和姿态 -->
+<!-- 总结: 先看joint, 计算出parent link的frame作为参考系, 再看visual, 将visual中的origin叠加到参考系中 -->
+<robot name="arm">
+  <link name="base_link">
+    <!-- base_link frame为world坐标原点 -->
+    <visual>
+      <origin xyz="0.0 0 0.0" rpy="0.0 0.0 0.0"/>
+      <geometry>
+        <cylinder length="0.01" radius="0.2"/>
+      </geometry>
+      <material name="yellow">
+        <color rgba="1 1 0 1"/>
+      </material>
+    </visual>
+  </link>
+
+  <link name="pan_link">
+    <visual>
+      <origin xyz="0 0 0.0" rpy="0 0 0"/>
+      <geometry>
+        <cylinder length="0.4" radius="0.04"/>
+      </geometry>
+      <material name="red">
+        <color rgba="0 0 1 1"/>
+      </material>
+    </visual>
+  </link>
+
+  <link name="tilt_link">
+    <visual>
+      <geometry>
+        <cylinder length="0.4" radius="0.04"/>
+      </geometry>
+      <origin xyz="0 0 0" rpy="0 1.5708 0"/>
+      <material name="green">
+        <color rgba="1 0 0 1"/>
+      </material>
+    </visual>
+  </link>
+
+  <joint name="pan_joint" type="revolute">
+    <limit effort="1000.0" lower="0.0" upper="3.1415926" velocity="0.5"/>
+    <parent link="base_link"/>
+    <child link="pan_link"/>
+    <origin xyz="0 0 0.2" rpy="0 0 -0.7854"/>
+    <axis xyz="0 0 1"/>
+  </joint>
+
+  <joint name="tilt_joint" type="revolute">
+    <limit effort="1000.0" lower="0.0" upper="0.548" velocity="0.5"/>
+    <parent link="pan_link"/>
+    <child link="tilt_link"/>
+    <origin xyz="0 0 0.2" rpy="0 0 0.7854"/>
+    <axis xyz="0 0 1" />
+  </joint>
+</robot>
