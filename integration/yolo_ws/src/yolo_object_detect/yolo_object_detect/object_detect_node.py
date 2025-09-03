@@ -1,10 +1,11 @@
 import rclpy
 from rclpy.node import Node
 from sensor_msgs.msg import Image
-from rcl_interfaces.msg import SetParametersResult
+from example_interfaces.msg import String
 from cv_bridge import CvBridge
 import cv2
 import time
+import json
 from ament_index_python.packages import get_package_share_directory
 from ultralytics import YOLO
 
@@ -24,11 +25,13 @@ class ObjectDetectNode(Node):
         )
 
         # 创建发布者
-        self.publisher_ = self.create_publisher(Image, '/object_detect_result_topic', 10)
+        self.publisher_ = self.create_publisher(String, '/object_detect_result_topic', 10)
 
         self.model_path = self.get_parameter('model_path').value
         # 创建检测模型
         self.model = YOLO(self.model_path)
+
+        self.get_logger().info('load model from: ' + self.model_path)
 
         self.bridge = CvBridge()
 
@@ -38,16 +41,38 @@ class ObjectDetectNode(Node):
         cv_image = self.bridge.imgmsg_to_cv2(data)
 
         results = self.model(cv_image)
+
+        # 解析结果
+        detect_results = []
         for detection in results:
+            # 图片中的所有框
+            box_results = []
+
             boxes = detection.boxes
 
             for i in range(len(boxes)):
+                # 图片中的某个框
+                box_result = {}
+
                 [x1, y1, x2, y2] = boxes[i].xyxy[0]
                 x1, y1, x2, y2 = int(x1), int(y1), int(x2), int(y2)  # 转换为整数类型
-                name = detection.names[i]
+                category = detection.names[int(boxes[i].cls[0].item())]
 
-                self.get_logger().info(f'分类:{name}, box: {(x1, y1)}, {(x2, y2)}')
+                box_result['box'] = [x1, y1, x2, y2]
+                box_result['category'] = category
+
+                box_results.append(box_result)
+
+                self.get_logger().info(f'分类:{category}, box: {(x1, y1)}, {(x2, y2)}')
                 self.get_logger().info('-'*30)
+            
+            detect_results.append(box_results)
+
+        msg = String()
+        msg.data = json.dumps(detect_results)
+
+        self.publisher_.publish(msg)
+        self.get_logger().info(f'publish message {msg.data}')
 
 def main():
     rclpy.init()

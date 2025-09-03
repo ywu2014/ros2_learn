@@ -10,7 +10,10 @@ class ObjectDetectClient(Node):
         super().__init__('object_detect_client')
         self.publisher_ = self.create_publisher(Image, '/image_topic', 10)
         self.bridge = CvBridge()
-        self.test_image_path = get_package_share_directory('yolo_object_detect') + '/resource/IMG_5153.JPG'
+
+        self.default_image_path = get_package_share_directory('yolo_object_detect') + '/resource/IMG_5153.JPG'
+        self.declare_parameter('test_image_path', self.default_image_path)
+        self.test_image_path = self.get_parameter('test_image_path').value
         self.get_logger().info(f'test image path: {self.test_image_path}')
         self.image = cv2.imread(self.test_image_path)
 
