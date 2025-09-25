@@ -1,0 +1,51 @@
+<?xml version="1.0" ?>
+<robot name="simple_robot">
+
+  <!-- 机械部分 -->
+  <link name="base_link">
+    <visual>
+      <geometry>
+        <box size="0.1 0.1 0.1"/>
+      </geometry>
+      <origin xyz="0 0 0.05" rpy="0 0 0"/>
+      <material name="blue">
+        <color rgba="0 0 1 1"/> <!-- 蓝色 -->
+      </material>
+    </visual>
+  </link>
+  <link name="link1">
+    <visual>
+      <geometry>
+        <box size="0.1 0.1 0.1"/>
+      </geometry>
+      <origin xyz="0 0 0.05" rpy="0 0 0"/>
+      <material name="yellow">
+        <color rgba="1 1 0 1"/> <!-- 黄色 -->
+      </material>
+    </visual>
+  </link>
+
+  <!-- 关节部分 -->
+  <joint name="joint1" type="revolute">
+    <parent link="base_link"/>
+    <child link="link1"/>
+    <origin xyz="0 0 0.1" rpy="0 0 0"/>
+    <axis xyz="0 0 1"/>
+    <limit effort="10" lower="-1.57" upper="1.57" velocity="1.0"/>  <!-- 限制关节的旋转角度 -->
+  </joint>
+
+  <!-- 控制部分 -->
+  <ros2_control name="FakeSystem" type="system">
+    <hardware>
+      <!-- 模拟硬件, ros2 control核心; 控制真实机械臂需要编写插件 -->
+      <plugin>mock_components/GenericSystem</plugin>
+    </hardware>
+    <!-- 配置控制器可以控制哪些关节 -->
+    <joint name="joint1">
+      <command_interface name="position" />
+      <state_interface name="position">
+        <param name="initial_value">0.0</param>
+      </state_interface>
+    </joint>
+  </ros2_control>
+</robot>

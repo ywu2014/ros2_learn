@@ -13,6 +13,7 @@ setup(
         ('share/' + package_name, ['package.xml']),
         ('share/' + package_name + '/urdf', glob('urdf/*')),
         ('share/' + package_name + '/launch', glob('launch/*.py')),
+        ('share/' + package_name + '/config', glob('config/*')),
     ],
     install_requires=['setuptools'],
     zip_safe=True,
@@ -23,6 +24,7 @@ setup(
     tests_require=['pytest'],
     entry_points={
         'console_scripts': [
+            'joint_control = arm1.joint_control:main'
         ],
     },
 )

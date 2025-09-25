@@ -38,3 +38,5 @@ log/
 .ros/
 colcon-build-args.json
 integration/yolo_ws/src/yolo_object_detect/resource/best.pt
+
+.vscode/
