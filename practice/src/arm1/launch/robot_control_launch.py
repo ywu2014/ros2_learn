@@ -1,6 +1,7 @@
 from launch import LaunchDescription
 from launch_ros.actions import Node
 from ament_index_python.packages import get_package_share_directory
+from launch.actions import TimerAction
 
 package_share_directory = get_package_share_directory('arm1')
 urdf_file_path = package_share_directory + '/urdf/robot_ros2_control.urdf'
@@ -30,7 +31,11 @@ def generate_launch_description():
     cm_node = Node(
         package="controller_manager",
         executable="ros2_control_node",
-        parameters=[package_share_directory + '/config/robot_ros2_controllers.yaml'],
+        parameters=[
+            {'robot_description': robot_desc},
+            {'use_sim_time': True},
+            package_share_directory + '/config/robot_ros2_controllers.yaml'
+        ],
         output="both",
     )
 
@@ -59,7 +64,7 @@ def generate_launch_description():
             robot_desc_node,
             joint_state_publisher_node,
             cm_node,
-            cn_node,
+            TimerAction(period=5.0, actions=[cn_node]),
             rviz_node,
             jc_node
         ]
