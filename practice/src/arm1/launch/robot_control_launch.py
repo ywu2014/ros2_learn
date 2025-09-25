@@ -49,7 +49,8 @@ def generate_launch_description():
             robot_desc_node,
             cm_node,
             cn_node,
-            rviz_node
+            rviz_node,
+            jc_node
         ]
     )
 
