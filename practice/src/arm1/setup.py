@@ -24,7 +24,10 @@ setup(
     tests_require=['pytest'],
     entry_points={
         'console_scripts': [
-            'joint_control = arm1.joint_control:main'
+            'joint_control = arm1.joint_control:main',
+            'test_arm_action = arm1.test_arm_action:main',
+            'test_arm_publisher = arm1.test_arm_publisher:main',
+            'test_arm_hand = arm1.test_arm_hand:main',
         ],
     },
 )
