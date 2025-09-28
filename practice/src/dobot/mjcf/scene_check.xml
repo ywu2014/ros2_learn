@@ -1,0 +1,193 @@
+<?xml version="1.0" ?>
+<mujoco model="scene_pcb">
+  <compiler angle="radian"/>
+  <asset>
+    <texture type="skybox" builtin="gradient" rgb1="0.3 0.5 0.7" rgb2="0 0 0" width="512" height="512"/>
+    <texture name="texplane" type="2d" builtin="flat" rgb1="0.8 0.8 0.8" rgb2="0.6 0.6 0.6" width="512" height="512"/>
+    <material name="matplane" texture="texplane" shininess="1" specular="0.5" rgba="0.9 0.9 0.9 1"/>
+    
+    <texture name="pcb_tex" type="2d" builtin="flat" rgb1="0.3 0.3 0.3" rgb2="0.2 0.2 0.2" width="512" height="512"/>
+    <material name="pcb_mat" texture="pcb_tex" shininess="0.5" specular="0.2" rgba="0.3 0.3 0.3 1"/>
+    
+    <mesh name="base_link_visual" file="../mesh/base_link.STL" />
+    <mesh name="base_link_collision" file="../mesh/base_link.STL" />
+    <mesh name="Link1_visual" file="../mesh/Link1.STL" />
+    <mesh name="Link1_collision" file="../mesh/Link1.STL" />
+    <mesh name="Link2_visual" file="../mesh/Link2.STL" />
+    <mesh name="Link2_collision" file="../mesh/Link2.STL" />
+    <mesh name="Link3_visual" file="../mesh/Link3.STL" />
+    <mesh name="Link3_collision" file="../mesh/Link3.STL" />
+    <mesh name="Link4_visual" file="../mesh/Link4.STL" />
+    <mesh name="Link4_collision" file="../mesh/Link4.STL" />
+    <mesh name="Link5_visual" file="../mesh/Link5.STL" />
+    <mesh name="Link5_collision" file="../mesh/Link5.STL" />
+    <mesh name="Link6_visual" file="../mesh/Link6.STL" />
+    <mesh name="Link6_collision" file="../mesh/Link6.STL" />
+
+    <mesh name="pcb_rack" file="../mesh/pcb_rack.STL" scale="0.001 0.001 0.001" />
+
+  </asset>
+
+  <worldbody>
+    <light pos="0 0 3" directional="true" diffuse="0.8 0.8 0.8" specular="0.3 0.3 0.3"/>
+    <geom name="floor" type="plane" size="10 10 0.1" material="matplane" condim="3"/>
+    
+    <body name="pillar_body" pos="0.2 0 0.3">
+      <geom name="pillar" type="box" size="0.1 0.1 0.4" contype="1" conaffinity="1" />
+
+      <camera name="depth_camera" mode="fixed" pos="0 0 0.4" euler="0 0 -1.5708" fovy="60"/>
+    </body>
+
+    <!-- 修改后的机械臂位置 - 安装在pillar的右平面上端 -->
+    <body name="base_link" pos="0.1 0 0.6" euler="0 -1.5708 0">
+      <inertial pos="-0.0027213 3.915E-07 0.022038" mass="0.653" diaginertia="0.00075137 0.00080094 0.0010902" />
+      <geom type="mesh" mesh="base_link_visual" />
+      <geom type="mesh" mesh="base_link_collision" contype="1" conaffinity="1" />
+
+      <body name="Link1" pos="0 0 0.1283">
+        <joint name="joint1" type="hinge" pos="0 0 0" axis="0 0 1" range="-6.27 6.27" />
+        <inertial pos="-3.68657602416735E-05 -0.00394516685385322 0.00364037839421286" mass="1.31100598822002" diaginertia="0.00202531167977736 0.00198085794611413 0.00183966900872187" />
+        <geom type="mesh" mesh="Link1_visual" />
+        <geom type="mesh" mesh="Link1_collision" contype="1" conaffinity="1" />
+
+        <body name="Link2" pos="0 0 0" euler="1.5708 0 0">
+          <joint name="joint2" type="hinge" pos="0 0 0" axis="0 0 1" range="-6.27 6.27" />
+          <inertial pos="-0.129235280055448 1.440541622715E-05 0.133173619961293" mass="3.40043726977504" diaginertia="0.00450581324845612 0.00632329822349442 0.00578241711656701" />
+          <geom type="mesh" mesh="Link2_visual" />
+          <geom type="mesh" mesh="Link2_collision" contype="1" conaffinity="1" />
+
+          <body name="Link3" pos="-0.274 0 0">
+            <joint name="joint3" type="hinge" pos="0 0 0" axis="0 0 1" range="-2.86 2.86" />
+            <inertial pos="-0.119822632176479 8.63344146663093E-08 0.0099876637825216" mass="2.21449412948544" diaginertia="0.00236120280734313 0.00313635345351584 0.00285118872456311" />
+            <geom type="mesh" mesh="Link3_visual" />
+            <geom type="mesh" mesh="Link3_collision" contype="1" conaffinity="1" />
+
+            <body name="Link4" pos="-0.23 0 0.1283">
+              <joint name="joint4" type="hinge" pos="0 0 0" axis="0 0 1" range="-6.27 6.27" />
+              <inertial pos="1.74679534498573E-07 0.0034522361215461 -0.0028730999658578" mass="0.842272956366123" diaginertia="0.00100389823526424 0.000793473566890046 0.000993889852029541" />
+              <geom type="mesh" mesh="Link4_visual" />
+              <geom type="mesh" mesh="Link4_collision" contype="1" conaffinity="1" />
+
+              <body name="Link5" pos="0 -0.116 0" euler="1.5708 0 0">
+                <joint name="joint5" type="hinge" pos="0 0 0" axis="0 0 1" range="-6.27 6.27" />
+                <inertial pos="-1.74603758796282E-07 -0.00333192403958193 -0.00286780844130663" mass="0.843692877114241" diaginertia="0.0010085532680982 0.000794614679668754 0.000998497358703575" />
+                <geom type="mesh" mesh="Link5_visual" />
+                <geom type="mesh" mesh="Link5_collision" contype="1" conaffinity="1" />
+
+                <body name="Link6" pos="0 0.105 0" euler="-1.5708 0 0">
+                  <joint name="joint6" type="hinge" pos="0 0 0" axis="0 0 1" range="-6.27 6.27" />
+                  <inertial pos="-5.77233004964394E-07 0.000270130842674243 -0.0201386770129675" mass="0.159409278145106" diaginertia="8.29484481057063E-05 8.35928339777967E-05 0.000131911087085913" />
+                  <geom type="mesh" mesh="Link6_visual" />
+                  <geom type="mesh" mesh="Link6_collision" contype="1" conaffinity="1" />
+                  
+                  <!-- 棋盘格标定板绑定在Link6末端 -->
+                  <body name="checkerboard" pos="0 0 0.02">
+                    <inertial mass="0.01" diaginertia="0.083 0.083 0.083" pos="0 0 0"/>
+                    
+                    <!-- 棋盘格碰撞体 -->
+                    <geom name="checkerboard_collision" type="box" size="0.08 0.08 0.0025" rgba="0.5 0.5 0.5 0.5" contype="0" conaffinity="0"/>
+                    
+                    <!-- 棋盘格视觉几何体 -->
+                    <!-- 第一行 -->
+                    <geom name="sqr11" type="box" size="0.01 0.01 0.0025" pos="-0.07 -0.07 0" rgba="0 0 0 1"/>
+                    <geom name="sqr12" type="box" size="0.01 0.01 0.0025" pos="-0.05 -0.07 0" rgba="1 1 1 1"/>
+                    <geom name="sqr13" type="box" size="0.01 0.01 0.0025" pos="-0.03 -0.07 0" rgba="0 0 0 1"/>
+                    <geom name="sqr14" type="box" size="0.01 0.01 0.0025" pos="-0.01 -0.07 0" rgba="1 1 1 1"/>
+                    <geom name="sqr15" type="box" size="0.01 0.01 0.0025" pos="0.01 -0.07 0" rgba="0 0 0 1"/>
+                    <geom name="sqr16" type="box" size="0.01 0.01 0.0025" pos="0.03 -0.07 0" rgba="1 1 1 1"/>
+                    <geom name="sqr17" type="box" size="0.01 0.01 0.0025" pos="0.05 -0.07 0" rgba="0 0 0 1"/>
+                    <geom name="sqr18" type="box" size="0.01 0.01 0.0025" pos="0.07 -0.07 0" rgba="1 1 1 1"/>
+                    
+                    <!-- 第二行 -->
+                    <geom name="sqr21" type="box" size="0.01 0.01 0.0025" pos="-0.07 -0.05 0" rgba="1 1 1 1"/>
+                    <geom name="sqr22" type="box" size="0.01 0.01 0.0025" pos="-0.05 -0.05 0" rgba="0 0 0 1"/>
+                    <geom name="sqr23" type="box" size="0.01 0.01 0.0025" pos="-0.03 -0.05 0" rgba="1 1 1 1"/>
+                    <geom name="sqr24" type="box" size="0.01 0.01 0.0025" pos="-0.01 -0.05 0" rgba="0 0 0 1"/>
+                    <geom name="sqr25" type="box" size="0.01 0.01 0.0025" pos="0.01 -0.05 0" rgba="1 1 1 1"/>
+                    <geom name="sqr26" type="box" size="0.01 0.01 0.0025" pos="0.03 -0.05 0" rgba="0 0 0 1"/>
+                    <geom name="sqr27" type="box" size="0.01 0.01 0.0025" pos="0.05 -0.05 0" rgba="1 1 1 1"/>
+                    <geom name="sqr28" type="box" size="0.01 0.01 0.0025" pos="0.07 -0.05 0" rgba="0 0 0 1"/>
+                    
+                    <!-- 第三行 -->
+                    <geom name="sqr31" type="box" size="0.01 0.01 0.0025" pos="-0.07 -0.03 0" rgba="0 0 0 1"/>
+                    <geom name="sqr32" type="box" size="0.01 0.01 0.0025" pos="-0.05 -0.03 0" rgba="1 1 1 1"/>
+                    <geom name="sqr33" type="box" size="0.01 0.01 0.0025" pos="-0.03 -0.03 0" rgba="0 0 0 1"/>
+                    <geom name="sqr34" type="box" size="0.01 0.01 0.0025" pos="-0.01 -0.03 0" rgba="1 1 1 1"/>
+                    <geom name="sqr35" type="box" size="0.01 0.01 0.0025" pos="0.01 -0.03 0" rgba="0 0 0 1"/>
+                    <geom name="sqr36" type="box" size="0.01 0.01 0.0025" pos="0.03 -0.03 0" rgba="1 1 1 1"/>
+                    <geom name="sqr37" type="box" size="0.01 0.01 0.0025" pos="0.05 -0.03 0" rgba="0 0 0 1"/>
+                    <geom name="sqr38" type="box" size="0.01 0.01 0.0025" pos="0.07 -0.03 0" rgba="1 1 1 1"/>
+                    
+                    <!-- 第四行 -->
+                    <geom name="sqr41" type="box" size="0.01 0.01 0.0025" pos="-0.07 -0.01 0" rgba="1 1 1 1"/>
+                    <geom name="sqr42" type="box" size="0.01 0.01 0.0025" pos="-0.05 -0.01 0" rgba="0 0 0 1"/>
+                    <geom name="sqr43" type="box" size="0.01 0.01 0.0025" pos="-0.03 -0.01 0" rgba="1 1 1 1"/>
+                    <geom name="sqr44" type="box" size="0.01 0.01 0.0025" pos="-0.01 -0.01 0" rgba="0 0 0 1"/>
+                    <geom name="sqr45" type="box" size="0.01 0.01 0.0025" pos="0.01 -0.01 0" rgba="1 1 1 1"/>
+                    <geom name="sqr46" type="box" size="0.01 0.01 0.0025" pos="0.03 -0.01 0" rgba="0 0 0 1"/>
+                    <geom name="sqr47" type="box" size="0.01 0.01 0.0025" pos="0.05 -0.01 0" rgba="1 1 1 1"/>
+                    <geom name="sqr48" type="box" size="0.01 0.01 0.0025" pos="0.07 -0.01 0" rgba="0 0 0 1"/>
+                    
+                    <!-- 第五行 -->
+                    <geom name="sqr51" type="box" size="0.01 0.01 0.0025" pos="-0.07 0.01 0" rgba="0 0 0 1"/>
+                    <geom name="sqr52" type="box" size="0.01 0.01 0.0025" pos="-0.05 0.01 0" rgba="1 1 1 1"/>
+                    <geom name="sqr53" type="box" size="0.01 0.01 0.0025" pos="-0.03 0.01 0" rgba="0 0 0 1"/>
+                    <geom name="sqr54" type="box" size="0.01 0.01 0.0025" pos="-0.01 0.01 0" rgba="1 1 1 1"/>
+                    <geom name="sqr55" type="box" size="0.01 0.01 0.0025" pos="0.01 0.01 0" rgba="0 0 0 1"/>
+                    <geom name="sqr56" type="box" size="0.01 0.01 0.0025" pos="0.03 0.01 0" rgba="1 1 1 1"/>
+                    <geom name="sqr57" type="box" size="0.01 0.01 0.0025" pos="0.05 0.01 0" rgba="0 0 0 1"/>
+                    <geom name="sqr58" type="box" size="0.01 0.01 0.0025" pos="0.07 0.01 0" rgba="1 1 1 1"/>
+                    
+                    <!-- 第六行 -->
+                    <geom name="sqr61" type="box" size="0.01 0.01 0.0025" pos="-0.07 0.03 0" rgba="1 1 1 1"/>
+                    <geom name="sqr62" type="box" size="0.01 0.01 0.0025" pos="-0.05 0.03 0" rgba="0 0 0 1"/>
+                    <geom name="sqr63" type="box" size="0.01 0.01 0.0025" pos="-0.03 0.03 0" rgba="1 1 1 1"/>
+                    <geom name="sqr64" type="box" size="0.01 0.01 0.0025" pos="-0.01 0.03 0" rgba="0 0 0 1"/>
+                    <geom name="sqr65" type="box" size="0.01 0.01 0.0025" pos="0.01 0.03 0" rgba="1 1 1 1"/>
+                    <geom name="sqr66" type="box" size="0.01 0.01 0.0025" pos="0.03 0.03 0" rgba="0 0 0 1"/>
+                    <geom name="sqr67" type="box" size="0.01 0.01 0.0025" pos="0.05 0.03 0" rgba="1 1 1 1"/>
+                    <geom name="sqr68" type="box" size="0.01  0.01 0.0025" pos="0.07 0.03 0" rgba="0 0 0 1"/>
+                    
+                    <!-- 第七行 -->
+                    <geom name="sqr71" type="box" size="0.01 0.01 0.0025" pos="-0.07 0.05 0" rgba="0 0 0 1"/>
+                    <geom name="sqr72" type="box" size="0.01 0.01 0.0025" pos="-0.05 0.05 0" rgba="1 1 1 1"/>
+                    <geom name="sqr73" type="box" size="0.01 0.01 0.0025" pos="-0.03  0.05 0" rgba="0 0 0 1"/>
+                    <geom name="sqr74" type="box" size="0.01 0.01 0.0025" pos="-0.01 0.05 0" rgba="1 1 1 1"/>
+                    <geom name="sqr75" type="box" size="0.01 0.01 0.0025" pos="0.01 0.05 0" rgba="0 0 0 1"/>
+                    <geom name="sqr76" type="box" size="0.01 0.01 0.0025" pos="0.03 0.05 0" rgba="1 1 1 1"/>
+                    <geom name="sqr77" type="box" size="0.01 0.01 0.0025" pos="0.05 0.05 0" rgba="0 0 0 1"/>
+                    <geom name="sqr78" type="box" size="0.01 0.01 0.0025" pos="0.07 0.05 0" rgba="1 1 1 1"/>
+                    
+                    <!-- 第八行 -->
+                    <geom name="sqr81" type="box" size="0.01 0.01 0.0025" pos="-0.07 0.07 0" rgba="1 1 1 1"/>
+                    <geom name="sqr82" type="box" size="0.01 0.01 0.0025" pos="-0.05 0.07 0" rgba="0 0 0 1"/>
+                    <geom name="sqr83" type="box" size="0.01 0.01 0.0025" pos="-0.03 0.07 0" rgba="1 1 1 1"/>
+                    <geom name="sqr84" type="box" size="0.01 0.01 0.0025" pos="-0.01 0.07 0" rgba="0 0 0 1"/>
+                    <geom name="sqr85" type="box" size="0.01 0.01 0.0025" pos="0.01 0.07 0" rgba="1 1 1 1"/>
+                    <geom name="sqr86" type="box" size="0.01 0.01 0.0025" pos="0.03 0.07 0" rgba="0 0 0 1"/>
+                    <geom name="sqr87" type="box" size="0.01 0.01 0.0025" pos="0.05 0.07 0" rgba="1 1 1 1"/>
+                    <geom name="sqr88" type="box" size="0.01 0.01 0.0025" pos="0.07 0.07 0" rgba="0 0 0 1"/>
+                  </body>
+                </body>
+              </body>
+            </body>
+          </body>
+        </body>
+      </body>
+    </body>
+
+    <geom name="pcb_rack1" type="mesh" mesh="pcb_rack" pos="0.6 0.25 0.5" euler="-1.5708 3.14159 -1.5708" material="pcb_mat" contype="1" conaffinity="1"/>
+    <geom name="pcb_rack2" type="mesh" mesh="pcb_rack" pos="0.5 -0.25 0.5" euler="-1.5708 0 -1.5708" material="pcb_mat" contype="1" conaffinity="1"/>
+    <geom name="pcb_rack3" type="mesh" mesh="pcb_rack" pos="-0.6 0.25 0.5" euler="-1.5708 3.14159 -1.5708" material="pcb_mat" contype="1" conaffinity="1"/>
+    <geom name="pcb_rack4" type="mesh" mesh="pcb_rack" pos="-0.8 -0.25 0.5" euler="-1.5708 0 -1.5708" material="pcb_mat" contype="1" conaffinity="1"/>
+  </worldbody>
+
+  <actuator>
+    <general name="actuator1" joint="joint1" gainprm="2000" biasprm="0 -4500 -450" ctrlrange="-3 3"/>
+    <general name="actuator2" joint="joint2" gainprm="2000" biasprm="0 -4500 -450" ctrlrange="-3 3"/>
+    <general name="actuator3" joint="joint3" gainprm="2000" biasprm="0 -3500 -350" ctrlrange="-3 3"/>
+    <general name="actuator4" joint="joint4" gainprm="2000" biasprm="0 -3500 -350" ctrlrange="-3 3"/>
+    <general name="actuator5" joint="joint5" gainprm="2000" biasprm="0 -2000 -200" forcerange="-12 12" ctrlrange="-3 3"/>
+    <general name="actuator6" joint="joint6" gainprm="2000" biasprm="0 -2000 -200" forcerange="-12 12" ctrlrange="-3 3"/>
+  </actuator>
+</mujoco>
