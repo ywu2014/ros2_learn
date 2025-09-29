@@ -24,7 +24,7 @@
       <!-- 相机支架 -->
       <body name="camera_bracket" pos="0 0 0.4">
         <geom size="0.03 0.03 0.1" type="box" rgba="0 0 1 1"/>
-        <camera name="depth_camera" mode="fixed" pos="0 0 0.15" euler="0 -1.0708 0" fovy="60"/>
+        <camera name="depth_camera" mode="fixed" pos="0 0 0.15" euler="-1.0708 0 0" fovy="60"/>
       </body>
     </body>
 
