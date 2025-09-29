@@ -19,7 +19,15 @@
     <light pos="0 0 3" directional="true" diffuse="0.8 0.8 0.8" specular="0.3 0.3 0.3"/>
     <geom name="floor" type="plane" size="10 10 0.1" material="matplane" condim="3"/>
 
-    <geom size="0.05 0.05 0.3" pos="0 0 0.3" type="box" rgba="0.7 0.7 0.7 1"/>
+    <body name="pillar_body" pos="0 0 0.3">
+      <geom size="0.05 0.05 0.3" type="box" rgba="0.7 0.7 0.7 1"/>
+      <!-- 相机支架 -->
+      <body name="camera_bracket" pos="0 0 0.4">
+        <geom size="0.03 0.03 0.1" type="box" rgba="0 0 1 1"/>
+        <camera name="depth_camera" mode="fixed" pos="0 0 0.15" euler="0 -1.0708 0" fovy="60"/>
+      </body>
+    </body>
+
     <geom pos="0 -0.05 0.5" quat="0.500025 0.5 -0.5 0.499975" type="mesh" rgba="1 0 0 1" mesh="base_link"/>
     <body name="Link1" pos="-6.41844e-06 -0.1783 0.5" quat="0.500025 0.5 -0.5 0.499975">
       <inertial pos="-3.68658e-05 -0.00394517 0.00364038" quat="0.668079 0.224285 -0.228154 0.671798" mass="1.31101" diaginertia="0.00217669 0.00202531 0.00164384"/>
