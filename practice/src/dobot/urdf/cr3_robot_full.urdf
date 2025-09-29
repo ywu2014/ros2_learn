@@ -9,6 +9,7 @@ Stephen Brawner (brawner@gmail.com)
   </material>
   <link name="dummy_link" />
 
+  <!-- 机械臂支架 -->
   <link name="pillar_body">
     <inertial>
       <origin xyz="0 0 0.3" rpy="0 0 0" />
@@ -32,6 +33,37 @@ Stephen Brawner (brawner@gmail.com)
     </collision>
   </link>
 
+  <!-- 相机支架 -->
+  <link name="camera_bracket">
+    <inertial>
+      <origin xyz="0 0 0.1" rpy="0 0 0" />
+      <mass value="0.653" />
+      <inertia ixx="0.00075137" ixy="-3.0366E-08" ixz="1.2825E-06" iyy="0.00080094" iyz="2.5423E-09" izz="0.0010902" />
+    </inertial>
+    <visual>
+      <origin xyz="0 0 0.1" rpy="0 0 0" />
+      <geometry>
+        <box size="0.06 0.06 0.2" />
+      </geometry>
+      <material name="">
+        <color rgba="0 0 1 1.0" />
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="0 0 0.1" rpy="0 0 0" />
+      <geometry>
+        <box size="0.06 0.06 0.2" />
+      </geometry>
+    </collision>
+  </link>
+
+  <joint name="camera_bracket_joint" type="fixed">
+    <origin xyz="0 0 0.6" rpy="0 0 0" />
+    <parent link="pillar_body" />
+    <child link="camera_bracket" />
+  </joint>
+
+  <!-- 机械臂部分 -->
   <link name="base_link">
     <inertial>
       <origin xyz="-0.0027213 3.915E-07 0.022038" rpy="0 0 0" />
