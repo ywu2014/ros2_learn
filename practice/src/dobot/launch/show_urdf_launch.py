@@ -3,7 +3,8 @@ from launch_ros.actions import Node
 from ament_index_python.packages import get_package_share_directory
 
 package_share_directory = get_package_share_directory('dobot')
-urdf_file_path = package_share_directory + '/urdf/cr3_robot.urdf'
+# urdf_file_path = package_share_directory + '/urdf/cr3_robot.urdf'
+urdf_file_path = package_share_directory + '/urdf/cr3_robot_full.ros2.urdf'
 robot_desc = open(urdf_file_path, 'r').read()
 
 def generate_launch_description():

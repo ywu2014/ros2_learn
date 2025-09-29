@@ -5,7 +5,7 @@ Stephen Brawner (brawner@gmail.com)
      For more information, please see http://wiki.ros.org/sw_urdf_exporter -->
 <robot name="cr3_robot">
   <material name="checkerboard_texture">
-    <texture filename="../textures/chess_board.png"/>
+    <texture filename="package://dobot/textures/chess_board.png"/>
   </material>
   <!-- <link name="dummy_link" /> -->
 
@@ -73,7 +73,7 @@ Stephen Brawner (brawner@gmail.com)
     <visual>
       <origin xyz="0 0 0" rpy="0 0 0" />
       <geometry>
-        <mesh filename="../mesh/base_link.STL" />
+        <mesh filename="package://dobot/mesh/base_link.STL" />
       </geometry>
       <material name="">
         <color rgba="1 0 0 1" />
@@ -82,7 +82,7 @@ Stephen Brawner (brawner@gmail.com)
     <collision>
       <origin xyz="0 0 0" rpy="0 0 0" />
       <geometry>
-        <mesh filename="../mesh/base_link.STL" />
+        <mesh filename="package://dobot/mesh/base_link.STL" />
       </geometry>
     </collision>
   </link>
@@ -106,7 +106,7 @@ Stephen Brawner (brawner@gmail.com)
     <visual>
       <origin xyz="0 0 0" rpy="0 0 0" />
       <geometry>
-        <mesh filename="../mesh/Link1.STL" />
+        <mesh filename="package://dobot/mesh/Link1.STL" />
       </geometry>
       <material name="">
         <color rgba="1 1 1 1" />
@@ -115,7 +115,7 @@ Stephen Brawner (brawner@gmail.com)
     <collision>
       <origin xyz="0 0 0" rpy="0 0 0" />
       <geometry>
-        <mesh filename="../mesh/Link1.STL" />
+        <mesh filename="package://dobot/mesh/Link1.STL" />
       </geometry>
     </collision>
   </link>
@@ -135,7 +135,7 @@ Stephen Brawner (brawner@gmail.com)
     <visual>
       <origin xyz="0 0 0" rpy="0 0 0" />
       <geometry>
-        <mesh filename="../mesh/Link2.STL" />
+        <mesh filename="package://dobot/mesh/Link2.STL" />
       </geometry>
       <material name="">
         <color rgba="1 1 1 1" />
@@ -144,7 +144,7 @@ Stephen Brawner (brawner@gmail.com)
     <collision>
       <origin xyz="0 0 0" rpy="0 0 0" />
       <geometry>
-        <mesh filename="../mesh/Link2.STL" />
+        <mesh filename="package://dobot/mesh/Link2.STL" />
       </geometry>
     </collision>
   </link>
@@ -164,7 +164,7 @@ Stephen Brawner (brawner@gmail.com)
     <visual>
       <origin xyz="0 0 0" rpy="0 0 0" />
       <geometry>
-        <mesh filename="../mesh/Link3.STL" />
+        <mesh filename="package://dobot/mesh/Link3.STL" />
       </geometry>
       <material name="">
         <color rgba="1 1 1 1" />
@@ -173,7 +173,7 @@ Stephen Brawner (brawner@gmail.com)
     <collision>
       <origin xyz="0 0 0" rpy="0 0 0" />
       <geometry>
-        <mesh filename="../mesh/Link3.STL" />
+        <mesh filename="package://dobot/mesh/Link3.STL" />
       </geometry>
     </collision>
   </link>
@@ -193,7 +193,7 @@ Stephen Brawner (brawner@gmail.com)
     <visual>
       <origin xyz="0 0 0" rpy="0 0 0" />
       <geometry>
-        <mesh filename="../mesh/Link4.STL" />
+        <mesh filename="package://dobot/mesh/Link4.STL" />
       </geometry>
       <material name="">
         <color rgba="1 1 1 1" />
@@ -202,7 +202,7 @@ Stephen Brawner (brawner@gmail.com)
     <collision>
       <origin xyz="0 0 0" rpy="0 0 0" />
       <geometry>
-        <mesh filename="../mesh/Link4.STL" />
+        <mesh filename="package://dobot/mesh/Link4.STL" />
       </geometry>
     </collision>
   </link>
@@ -222,7 +222,7 @@ Stephen Brawner (brawner@gmail.com)
     <visual>
       <origin xyz="0 0 0" rpy="0 0 0" />
       <geometry>
-        <mesh filename="../mesh/Link5.STL" />
+        <mesh filename="package://dobot/mesh/Link5.STL" />
       </geometry>
       <material name="">
         <color rgba="1 1 1 1" />
@@ -231,7 +231,7 @@ Stephen Brawner (brawner@gmail.com)
     <collision>
       <origin xyz="0 0 0" rpy="0 0 0" />
       <geometry>
-        <mesh filename="../mesh/Link5.STL" />
+        <mesh filename="package://dobot/mesh/Link5.STL" />
       </geometry>
     </collision>
   </link>
@@ -251,7 +251,7 @@ Stephen Brawner (brawner@gmail.com)
     <visual>
       <origin xyz="0 0 0" rpy="0 0 0" />
       <geometry>
-        <mesh filename="../mesh/Link6.STL" />
+        <mesh filename="package://dobot/mesh/Link6.STL" />
       </geometry>
       <material name="">
         <color rgba="0 1 0 1" />
@@ -260,7 +260,7 @@ Stephen Brawner (brawner@gmail.com)
     <collision>
       <origin xyz="0 0 0" rpy="0 0 0" />
       <geometry>
-        <mesh filename="../mesh/Link6.STL" />
+        <mesh filename="package://dobot/mesh/Link6.STL" />
       </geometry>
     </collision>
   </link>

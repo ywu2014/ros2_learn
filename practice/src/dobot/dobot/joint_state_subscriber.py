@@ -1,6 +1,7 @@
 import rclpy
 from rclpy.node import Node
 from sensor_msgs.msg import JointState
+from ament_index_python.packages import get_package_share_directory
 import mujoco
 import numpy as np
 import glfw
@@ -15,9 +16,14 @@ class JointStateSubscriber(Node):
             self.callback,
             10
         )
+
+        self.package_share_directory = get_package_share_directory('dobot')
         
+        # mjcf_path = '/home/linkedata/projects/ros2/ros2_test/ros2_learn/practice/src/dobot/mjcf/scene_check.xml'
+        # mjcf_path = f'{self.package_share_directory}/mjcf/scene_check.xml'
+        mjcf_path = f'{self.package_share_directory}/mjcf/cr3_robot_full.xml'
         # 加载模型
-        self.model = mujoco.MjModel.from_xml_path('/home/linkedata/projects/ros2/ros2_test/ros2_learn/practice/src/dobot/mjcf/scene_check.xml')
+        self.model = mujoco.MjModel.from_xml_path(mjcf_path)
         self.data = mujoco.MjData(self.model)
 
         # 打印所有 body 的 ID 和名称

@@ -14,6 +14,7 @@ setup(
         ('share/' + package_name + '/urdf', glob('urdf/*')),
         ('share/' + package_name + '/mesh', glob('mesh/*')),
         ('share/' + package_name + '/mjcf', glob('mjcf/*')),
+        ('share/' + package_name + '/textures', glob('textures/*')),
         ('share/' + package_name + '/launch', glob('launch/*.py')),
     ],
     install_requires=['setuptools'],
