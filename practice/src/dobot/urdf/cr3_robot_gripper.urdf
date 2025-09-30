@@ -281,14 +281,14 @@ Stephen Brawner (brawner@gmail.com)
     <visual>
       <origin xyz="0 0 0" rpy="0 0 0"/>
       <geometry>
-        <mesh filename="../mesh/Flange.dae" />
+        <mesh filename="../mesh/Flange.stl" scale="0.001 0.001 0.001"/>
       </geometry>
       <material name="checkerboard_texture"/>
     </visual>
     <collision>
       <origin xyz="0 0 0" rpy="0 0 0"/>
       <geometry>
-        <mesh filename="../mesh/Flange.dae" />
+        <mesh filename="../mesh/Flange.stl" scale="0.001 0.001 0.001"/>
       </geometry>
     </collision>
   </link>
@@ -297,6 +297,35 @@ Stephen Brawner (brawner@gmail.com)
     <origin xyz="0 0 0" rpy="1.5708 0 0" />
     <parent link="Link6" />
     <child link="flange_link" />
+    <axis xyz="0 0 0" />
+    <limit lower="-6.27" upper="6.27" effort="0" velocity="0" />
+  </joint>
+
+  <!-- 夹爪 -->
+  <link name="gripper_link">
+    <inertial>
+      <mass value="0.1"/>
+      <inertia ixx="0.0001" ixy="0.0" ixz="0.0" iyy="0.0001" iyz="0.0" izz="0.0001"/>
+    </inertial>
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <mesh filename="../mesh/Gripper.stl" scale="0.001 0.001 0.001"/>
+      </geometry>
+      <!-- <material name="checkerboard_texture"/> -->
+    </visual>
+    <collision>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <mesh filename="../mesh/Gripper.stl" scale="0.001 0.001 0.001"/>
+      </geometry>
+    </collision>
+  </link>
+
+  <joint name="joint_gripper" type="fixed">
+    <origin xyz="0 0.05 0" rpy="0 0 0" />
+    <parent link="flange_link" />
+    <child link="gripper_link" />
     <axis xyz="0 0 0" />
     <limit lower="-6.27" upper="6.27" effort="0" velocity="0" />
   </joint>
