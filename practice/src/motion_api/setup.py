@@ -12,6 +12,9 @@ setup(
         ('share/' + package_name, ['package.xml']),
     ],
     install_requires=['setuptools'],
+    # 添加以下两行
+    package_data={'': ['*.so']},
+    include_package_data=True,
     zip_safe=True,
     maintainer='linkedata',
     maintainer_email='yejunwu123@gmail.com',
@@ -20,6 +23,7 @@ setup(
     tests_require=['pytest'],
     entry_points={
         'console_scripts': [
+            'test = motion_api.test1:main',
         ],
     },
 )
