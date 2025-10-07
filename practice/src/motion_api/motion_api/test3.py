@@ -7,6 +7,7 @@ from moveit.planning import (
     MultiPipelinePlanRequestParameters,
 )
 from moveit_configs_utils import MoveItConfigsBuilder
+from geometry_msgs.msg import PoseStamped
 
 def plan_and_execute(
         robot,
@@ -41,7 +42,7 @@ if __name__ == "__main__":
     rclpy.init()
     logger = get_logger("moveit_py.pose_goal")
 
-    path = __file__.split('motion_api/test2')[0] + 'config/moveit_cpp.yaml'
+    path = __file__.split('motion_api/test3')[0] + 'config/moveit_cpp.yaml'
     print(f'moveit_cpp.yaml path: {path}')
 
     moveit_config = (
@@ -63,17 +64,24 @@ if __name__ == "__main__":
 
     print(f'robot: {robot}')
     
-    ########################### 通过关节角设置位置 ############################
-    robot_model = robot.get_robot_model()
-    robot_state = RobotState(robot_model)
-    
-    # 指定关节位置, 并将其设置为目标状态
-    robot_state.set_joint_group_positions("arm", [0.0, -0.4, -0.79, -0.79, -1.10, 1.55])
-    # robot_state.set_to_random_positions()
-    arm_group.set_goal_state(robot_state=robot_state)
-
+    ########################### 通过设置末端位置进行规划 ############################
     # 设置机械臂起始位置为当前状态位置
     arm_group.set_start_state_to_current_state()
 
-    # 进行规划和执行
+    # 设置机械臂末端目标位置
+    pose_goal = PoseStamped()
+    pose_goal.header.frame_id = "base_link" # 表示末端位姿是在哪个参考坐标系下定义的, 通常是机器人底座或世界坐标系
+    # pose_goal.pose.orientation.x = 0.71
+    # pose_goal.pose.orientation.y = 0.71
+    # pose_goal.pose.position.x = 0.0
+    # pose_goal.pose.position.y = 0.68
+    # pose_goal.pose.position.z = 0.17
+    pose_goal.pose.orientation.w = 1.0
+    pose_goal.pose.position.x = 0.0
+    pose_goal.pose.position.y = 0.01
+    pose_goal.pose.position.z = 1.09
+    # 设置目标位置为指定的直角坐标系位置
+    arm_group.set_goal_state(pose_stamped_msg=pose_goal, pose_link="gripper_base_link") # 表示希望最终到达目标位置姿态
+
+    # 进行运动规划
     plan_and_execute(robot, arm_group, logger, sleep_time=3.0)

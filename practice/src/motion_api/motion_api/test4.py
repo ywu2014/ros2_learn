@@ -7,6 +7,7 @@ from moveit.planning import (
     MultiPipelinePlanRequestParameters,
 )
 from moveit_configs_utils import MoveItConfigsBuilder
+from geometry_msgs.msg import PoseStamped
 
 def plan_and_execute(
         robot,
@@ -41,7 +42,7 @@ if __name__ == "__main__":
     rclpy.init()
     logger = get_logger("moveit_py.pose_goal")
 
-    path = __file__.split('motion_api/test2')[0] + 'config/moveit_cpp.yaml'
+    path = __file__.split('motion_api/test3')[0] + 'config/moveit_cpp.yaml'
     print(f'moveit_cpp.yaml path: {path}')
 
     moveit_config = (
@@ -63,17 +64,15 @@ if __name__ == "__main__":
 
     print(f'robot: {robot}')
     
-    ########################### 通过关节角设置位置 ############################
-    robot_model = robot.get_robot_model()
-    robot_state = RobotState(robot_model)
-    
-    # 指定关节位置, 并将其设置为目标状态
-    robot_state.set_joint_group_positions("arm", [0.0, -0.4, -0.79, -0.79, -1.10, 1.55])
-    # robot_state.set_to_random_positions()
-    arm_group.set_goal_state(robot_state=robot_state)
-
+    ########################### 多种路径规划 ############################
     # 设置机械臂起始位置为当前状态位置
     arm_group.set_start_state_to_current_state()
 
-    # 进行规划和执行
-    plan_and_execute(robot, arm_group, logger, sleep_time=3.0)
+    arm_group.set_goal_state(configuration_name="ready")
+
+    multi_pipeline_plan_request_params = MultiPipelinePlanRequestParameters(
+        robot, ["ompl_rrtc", "pilz_lin", "chomp_planner"]
+    )
+
+    # 进行运动规划
+    plan_and_execute(robot, arm_group, logger, multi_plan_parameters=multi_pipeline_plan_request_params, sleep_time=3.0)
